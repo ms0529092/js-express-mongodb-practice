@@ -11,11 +11,12 @@ let  createRouter = (dependencies) => {
         return
     }
 
-    router.get('/', (req, res, next)=>{
-        mongoSevice.isConnected().then(isConnected => {
-            res.json({ isConnected });
-        }).catch(next);
-    });
+    //獲取資料庫連線狀態
+    // router.get('/', (req, res, next)=>{
+    //     mongoSevice.isConnected().then(isConnected => {
+    //         res.json({ isConnected });
+    //     }).catch(next);
+    // });
 
     router.use(user(mongoSevice));
 
