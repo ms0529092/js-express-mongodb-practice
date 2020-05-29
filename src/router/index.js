@@ -18,7 +18,8 @@ let  createRouter = (dependencies) => {
     //     }).catch(next);
     // });
 
-    router.use(user(mongoSevice));
+    router.use(user.sign(mongoSevice));
+    router.use(user.login(mongoSevice));
 
     return router;
 }

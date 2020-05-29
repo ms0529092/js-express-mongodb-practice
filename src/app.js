@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import logger from 'morgan';
+import cors from 'cors';
 import CreatedRouter from './router';
 import { MongoClient } from 'mongodb';
 import MongoServerConfig from './config/serverConfig.js';
@@ -24,6 +25,7 @@ client.connect()
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:false }));
+app.use(cors());
 
 app.use('/', CreatedRouter({client, mongoSevice}));
 

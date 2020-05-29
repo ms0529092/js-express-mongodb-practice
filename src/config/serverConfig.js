@@ -4,7 +4,7 @@ let mongoServerConfig = {
     /** 資料庫名稱 */
     dbName: process.env.MONGODB_DB_NAME || 'user',
     /** 資料表名稱 */
-    collectionName:'echo'
+    collectionName:'userData'
 };
 
 export default mongoServerConfig;

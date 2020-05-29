@@ -5,9 +5,9 @@ class MongoSevice {
         this.mongoCollectionName = collectionName;
     }
 
-    isConnected(){
-        return Promise.resolve(this.mongoClient.isConnected());
-    };
+    // isConnected(){
+    //     return Promise.resolve(this.mongoClient.isConnected());
+    // };
 
     async insert(data){
         const db = this.mongoClient.db(this.mongoDBName),

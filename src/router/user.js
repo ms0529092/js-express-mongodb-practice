@@ -1,18 +1,36 @@
 import express from 'express';
-import jwt from 'jsonwebtoken';
 
-let user = (mongoSevice) =>{
-    const router = express.Router();
+const router = express.Router();
 
-    router.post('/signUp' ,(req, res) => {
-        res.send('signUp');
-    });
+let user = {
+    sign:(mongoSevice)=>{
+        router.post('/sign' ,(req, res, next) => {
+            const user = {
+                phone:req.body.phone,
+                password: req.body.password,
+                username: req.body.username,
+            }
+            
+            mongoSevice.insert(user)
+                .then(()=>{
+                    res.send({ 
+                        data:'success'
+                    })
+                })
+                .catch(()=>{
+                    next()
+                });
+        });
 
-    router.post('/login' ,(req, res) => {
-        res.send('login');
-    });
-    
-    return router;
-};
+        return router;
+    },
+    login:(mongoSevice)=>{
+        router.post('/login' ,(req, res) => {
+            res.send({ data:'this is login'});
+        });
+
+        return router;
+    }
+}
 
 export default user;
