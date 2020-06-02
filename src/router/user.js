@@ -3,30 +3,16 @@ import express from 'express';
 const router = express.Router();
 
 let user = {
-    sign:(mongoSevice)=>{
-        router.post('/sign' ,(req, res, next) => {
-            const user = {
-                phone:req.body.phone,
-                password: req.body.password,
-                username: req.body.username,
-            }
-            
-            mongoSevice.insert(user)
-                .then(()=>{
-                    res.send({ 
-                        data:'success'
-                    })
-                })
-                .catch(()=>{
-                    next()
-                });
+    sign:(service)=>{
+        router.post('/sign', (req, res, next)=>{
+            service.signUp(req, res, next);
         });
 
         return router;
     },
-    login:(mongoSevice)=>{
-        router.post('/login' ,(req, res) => {
-            res.send({ data:'this is login'});
+    login:(service)=>{
+        router.post('/login' ,(req, res, next) => {
+            service.login(req, res, next);
         });
 
         return router;
