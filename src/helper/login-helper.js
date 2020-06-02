@@ -9,7 +9,7 @@ class loginHelper {
 
         result = Promise.all([this.checkUser()])
             .then((value)=>{
-                return Promise.resolve('done');
+                return Promise.resolve(value);
             })
             .catch((error)=>{
                 return Promise.reject(error);

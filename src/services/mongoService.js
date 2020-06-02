@@ -20,9 +20,11 @@ class MongoSevice {
         signHelper.signVerify()
         .then((value)=>{
             res.send({ data:'server is Sign', value:value });
+            // res.send(value);
         })
         .catch((error)=>{
             res.send({ data:'server is not Sign', error:error });
+            // res.send(error);
         })
     };
 
@@ -33,10 +35,12 @@ class MongoSevice {
 
         loginHelper.loginVerify()
         .then((value)=>{
-            res.send({ data:'frontEnd is login' });
+            res.send({ data:'frontEnd is login' , value:value });
+            // res.send(value);
         })
         .catch((error)=>{
             res.send({ data:'frontEnd is no login', error:error });
+            // res.send(error);
         })
     }
 }

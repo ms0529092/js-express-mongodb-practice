@@ -1,3 +1,5 @@
+import { ResponseModel, SignModel } from '../model';
+
 class SignHelper {
     constructor({ collection, req }){
         this.collection = collection;
@@ -7,13 +9,8 @@ class SignHelper {
     async signVerify(){
         let result;
 
-        result = Promise.all([this.checkSameUser(), this.insert()])
-            .then((value)=>{
-                return Promise.resolve('done');
-            })
-            .catch((error)=>{
-                return Promise.reject(error);
-            });
+        result = await this.checkSameUser();
+        result = await this.insert();
 
         return result;
     };
@@ -49,27 +46,26 @@ class SignHelper {
         return result;
     };
 
-    async insert(){
+    insert(){
         const self = this,
             {
                 collection,
                 requset
             } = self;
 
-            let user = {
-                phone:requset.body.phone,
-                password:requset.body.password,
-                username:requset.body.username
-            };
-
             let result;
-            let insertData = collection.insertOne(user);
+            let user = new SignModel(requset.body);
+            let insertData = () => collection.insertOne(user);
 
-            try{
-                result = await insertData;
-            } catch (error) {
-                result = error;
-            }
+            result = new Promise((resolve, reject)=>{
+                insertData()
+                .then((value)=>{
+                    resolve(value);
+                })
+                .catch((error)=>{
+                    reject(error);
+                })
+            })
             
             return result;
     };
