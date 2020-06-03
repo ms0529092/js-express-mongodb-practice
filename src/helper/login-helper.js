@@ -1,19 +1,13 @@
-class loginHelper {
-    constructor({ collection, req }){
-        this.collection = collection;
-        this.requset = req;
+class LoginHelper {
+    constructor(value = {}){
+        this.collection = value.collection;
+        this.requset = value.req;
     }
 
     async loginVerify(){
         let result;
 
-        result = Promise.all([this.checkUser()])
-            .then((value)=>{
-                return Promise.resolve(value);
-            })
-            .catch((error)=>{
-                return Promise.reject(error);
-            });
+        result = await this.checkUser();
 
         return result;
     };
@@ -50,4 +44,4 @@ class loginHelper {
 
 } 
 
-export default loginHelper;
+export default LoginHelper;

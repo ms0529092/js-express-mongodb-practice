@@ -3,7 +3,7 @@ import LoginModel from './login-model.js';
 
 class ResponseModel {
     constructor(value={}){
-        this.retCode = 0000,
+        this.retCode = '0000',
         this.retMsg = '',
         this.conect = {}
     }

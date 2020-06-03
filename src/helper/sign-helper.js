@@ -1,9 +1,9 @@
 import { ResponseModel, SignModel } from '../model';
 
 class SignHelper {
-    constructor({ collection, req }){
-        this.collection = collection;
-        this.requset = req;
+    constructor(value = {}){
+        this.collection = value.collection;
+        this.requset = value.req;
     }
 
     async signVerify(){

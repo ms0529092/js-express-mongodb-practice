@@ -1,11 +1,16 @@
 import SignHelper from '../helper/sign-helper.js';
 import LoginHelper from '../helper/login-helper.js';
+import GetUserListHelper from '../helper/getUserList-helper.js';
+import jwt from 'jsonwebtoken';
 
 class MongoSevice {
     constructor({ client, dbName, collectionName }){
         this.mongoClient = client;
         this.mongoDBName = dbName;
         this.mongoCollectionName = collectionName;
+
+        this.db = this.mongoClient.db(this.mongoDBName);
+        this.collection = this.db.collection(this.mongoCollectionName);
     }
 
     isConnected(){
@@ -13,35 +18,40 @@ class MongoSevice {
     };
 
     signUp(req, res, next){
-        const db = this.mongoClient.db(this.mongoDBName),
-              collection = db.collection(this.mongoCollectionName),
-              signHelper = new SignHelper({ collection, req });
+        const signHelper = new SignHelper( this.collection, req );
 
         signHelper.signVerify()
         .then((value)=>{
             res.send({ data:'server is Sign', value:value });
-            // res.send(value);
         })
         .catch((error)=>{
             res.send({ data:'server is not Sign', error:error });
-            // res.send(error);
         })
     };
 
     login(req, res, next){
-        const db = this.mongoClient.db(this.mongoDBName),
-              collection = db.collection(this.mongoCollectionName),
-              loginHelper = new LoginHelper({ collection, req });
+        const loginHelper = new LoginHelper(this.collection, req);
+
+        const EXPIRES_IN = 10 * 1000;
 
         loginHelper.loginVerify()
         .then((value)=>{
-            res.send({ data:'frontEnd is login' , value:value });
-            // res.send(value);
+            const user = {
+                username:value[0].username,
+                phone:value[0].phone
+            };
+            const token = jwt.sign(user, value[0].password, { expiresIn: EXPIRES_IN });
+
+            res.cookie('token', token, { maxAge: EXPIRES_IN, httpOnly: true}); 
+            res.send({ data:'frontEnd is login' , token:token });
         })
         .catch((error)=>{
             res.send({ data:'frontEnd is no login', error:error });
-            // res.send(error);
         })
+    };
+
+    getUserList(req, res, next){
+
     }
 }
 
