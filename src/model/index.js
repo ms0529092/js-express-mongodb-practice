@@ -3,9 +3,9 @@ import LoginModel from './login-model.js';
 
 class ResponseModel {
     constructor(value={}){
-        this.retCode = '0000',
-        this.retMsg = '',
-        this.conect = {}
+        this.retCode = value.retCode || '9999',
+        this.retMsg = value.retCode || 'other error',
+        this.content = value.content || {};
     }
 } 
 

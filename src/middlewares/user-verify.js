@@ -1,21 +1,12 @@
-import { ResponseModel, SignModel } from '../model';
+import { SignModel } from '../model';
 
-class SignHelper {
-    constructor(value = {}){
+class UserVerify {
+    constructor( value = {} ){
         this.collection = value.collection;
         this.requset = value.req;
     }
 
-    async signVerify(){
-        let result;
-
-        result = await this.checkSameUser();
-        result = await this.insert();
-
-        return result;
-    };
-    
-    checkSameUser(){
+    checkUser(){
         const self = this,
             {
                 collection,
@@ -23,20 +14,14 @@ class SignHelper {
             } = self;
             
         let result;
-        let filterDataBase = () => collection.find({  phone:requset.body.phone  }).toArray();
+        let filterDataBase = () => collection.find({ phone:requset.body.phone, password:requset.body.password }).toArray();
 
         
         result = new Promise((resolve, reject)=>{
             filterDataBase()
                 .then((value)=>{
-                    switch(value.length){
-                        case 0: 
-                            resolve(value);
-                        break;
-                        default:
-                            reject('DataBase find same Data');
-                        break;
-                    }
+                    console.log('123123' ,this.requset);
+                    resolve(value);
                 })
                 .catch((error)=>{
                     reject(error);
@@ -59,16 +44,17 @@ class SignHelper {
 
             result = new Promise((resolve, reject)=>{
                 insertData()
-                .then((value)=>{
-                    resolve(value);
-                })
-                .catch((error)=>{
-                    reject(error);
-                })
+                    .then((value)=>{
+                        resolve(value);
+                    })
+                    .catch((error)=>{
+                        reject(error);
+                    })
             })
             
             return result;
     };
-} 
 
-export default SignHelper;
+}
+
+export default UserVerify;
