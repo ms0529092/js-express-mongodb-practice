@@ -20,7 +20,6 @@ class UserVerify {
         result = new Promise((resolve, reject)=>{
             filterDataBase()
                 .then((value)=>{
-                    console.log('123123' ,this.requset);
                     resolve(value);
                 })
                 .catch((error)=>{

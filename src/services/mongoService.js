@@ -12,9 +12,9 @@ class MongoSevice {
         this.userHelper = ( req ) => new UserHelper({ collection:this.collection(), req });
     }
 
-    isConnected(){
-        return Promise.resolve(this.mongoClient.isConnected());
-    };
+    // isConnected(){
+    //     return Promise.resolve(this.mongoClient.isConnected());
+    // };
 
     signUp(req, res){
 
