@@ -1,7 +1,7 @@
-import JwtVerify from './jwt-verify.js';
-import UserVerify from './user-verify.js';
+import JwtMiddlewares from './jwt-middlewares.js';
+import UserVerify from './user-middlewares.js';
 
 export {
-    JwtVerify,
+    JwtMiddlewares,
     UserVerify
 }

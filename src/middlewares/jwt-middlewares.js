@@ -1,8 +1,14 @@
 import jwt from 'jsonwebtoken';
 import _ from 'lodash';
-class JwtVerify {
-    constructor(){
+
+class JwtMiddlewares {
+    constructor(value = {}){
+        this.EXPIRESIN = (value.expiresIn || 3000) * 1000
         this.SECRET = 'YOUR_JWT_SECRET';
+    }
+
+    getJWTToken(data){
+        return jwt.sign(data, this.SECRET, { expiresIn:this.EXPIRESIN });
     }
 
     verifyJWT(options = {}){
@@ -10,10 +16,10 @@ class JwtVerify {
         let result;
 
         result = (req, res, next) => {
-            // console.log(_.get(req, tokenPath));
-            this.verifyToken()
+            const getTokenPath = _.get(req, tokenPath);
+            
+            this.verifyToken(getTokenPath)
                 .then((decoded)=>{
-                    console.log(decoded);
                     next();
                 })
                 .catch(next);
@@ -22,14 +28,13 @@ class JwtVerify {
         return result;
     }
 
-    verifyToken(value){
+    async verifyToken(value){
         if(!value){
             return Promise.reject('No JWT');
         }
-
-        return jwt.verify(jwt, this.SECRET);
+        return jwt.verify(value, this.SECRET);
     }
     
 }
 
-export default JwtVerify;
+export default JwtMiddlewares;

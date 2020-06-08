@@ -3,14 +3,14 @@ import { ResponseModel } from '../model';
 
 class UserHelper {
     constructor(value){
-        this.UserVerify = new UserVerify(value);
-        this.ResponseModel = (value) => new ResponseModel(value);
+        this.userVerify = new UserVerify(value);
+        this.responseModel = (value) => new ResponseModel(value);
     }
 
     async signVerify(){
         let result;
 
-        result = await this.UserVerify.checkUser()
+        result = await this.userVerify.checkUser()
             .then((value)=>{
                 if(value.length === 0){
                     return Promise.resolve(value);
@@ -22,7 +22,7 @@ class UserHelper {
                 return Promise.reject(error)
             });
 
-        result = await this.UserVerify.insert();
+        result = await this.userVerify.insert();
 
         return result;
     };
@@ -30,13 +30,14 @@ class UserHelper {
     async loginVerify(){
         let result;
 
-        result = await this.UserVerify.checkUser()
+        result = await this.userVerify.checkUser()
             .then((value)=>{
-                if(value.length === 0){
-                    return Promise.resolve(value);
+                console.log(value);
+                if(value.length !== 0){
+                    return Promise.resolve(value[0]);
                 }
 
-                return Promise.reject('Input parameter count or format error !');
+                return Promise.reject('you are no Member!! Please Sign our Member !!');
             })
             .catch((error)=>{
                 return Promise.reject(error);
@@ -44,6 +45,21 @@ class UserHelper {
 
         return result;
     };
+
+    async getUserListVerify(){
+        let result;
+
+        result = await this.userVerify.checkUser()
+            .then((value)=>{
+                return Promise.resolve(value);
+            })
+            .catch((error)=>{
+                return Promise.reject(error);
+            })
+
+        return result;
+
+    }
 }
 
 export default UserHelper;

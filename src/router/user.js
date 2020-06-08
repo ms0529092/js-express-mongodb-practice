@@ -1,21 +1,22 @@
 import express from 'express';
-import { JwtVerify } from '../middlewares';
+import { JwtMiddlewares } from '../middlewares';
 
 const router = express.Router();
-const jwtVerify = new JwtVerify();
+const jwtMiddlewares = new JwtMiddlewares();
 
 let user = {
     sign:(service)=>{
-        router.post('/sign',(req, res, next)=>{
-            service.signUp(req, res);
-        });
+        router.post('/sign',service.signUp());
 
         return router;
     },
     login:(service)=>{
-        router.post('/login' ,jwtVerify.verifyJWT() ,(req, res) => {
-            service.login(req, res);
-        });
+        router.post('/login' ,service.login());
+
+        return router;
+    },
+    getUserList:(service)=>{
+        router.post('/getUserList' ,jwtMiddlewares.verifyJWT() ,service.getUserList());
 
         return router;
     }

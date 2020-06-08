@@ -20,6 +20,7 @@ let  createRouter = (dependencies) => {
 
     router.use(user.sign(mongoSevice));
     router.use(user.login(mongoSevice));
+    router.use(user.getUserList(mongoSevice));
 
     return router;
 }
