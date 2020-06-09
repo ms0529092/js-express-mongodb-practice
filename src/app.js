@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import cors from 'cors';
+
 import CreatedRouter from './router';
 import { MongoClient } from 'mongodb';
 import MongoServerConfig from './config/serverConfig.js';

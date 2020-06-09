@@ -19,7 +19,7 @@ class JwtMiddlewares {
             const getTokenPath = _.get(req, tokenPath);
             
             this.verifyToken(getTokenPath)
-                .then((decoded)=>{
+                .then(()=>{
                     next();
                 })
                 .catch(next);

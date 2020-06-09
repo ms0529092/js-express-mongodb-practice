@@ -14,10 +14,6 @@ class MongoSevice {
         
     }
 
-    // isConnected(){
-    //     return Promise.resolve(this.mongoClient.isConnected());
-    // };
-
     signUp(){
         let result;
 
@@ -41,7 +37,7 @@ class MongoSevice {
             this.userHelper(req).loginVerify()
                 .then((value)=>{ 
                     const token = this.jwtMiddlewares().getJWTToken(value);
-                    res.cookie('token', token, {  maxAge: this.jwtMiddlewares().EXPIRESIN, httpOnly: true })
+                    res.cookie('token', token, {  maxAge: this.jwtMiddlewares().EXPIRESIN, httpOnly: true });
                     res.send({ data:'frontEnd is login', token:token });
                 })
                 .catch((error)=>{
