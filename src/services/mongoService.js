@@ -54,7 +54,6 @@ class MongoSevice {
         result = (req, res) => {
             this.userHelper(req).getUserListVerify()
                 .then((value)=>{
-                    console.log(value);
                     res.send({ data:'frontEnd is mapping userList', value:value });
                 })
                 .catch((error)=>{
