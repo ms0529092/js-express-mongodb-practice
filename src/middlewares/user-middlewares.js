@@ -14,8 +14,8 @@ class UserVerify {
             } = self;
             
         let result;
-        let filterDataBase = () => collection.find(requset.body).toArray();
-
+        let filterDataBase = () => collection.find(requset.body.phone).toArray();
+        
         result = new Promise((resolve, reject)=>{
             filterDataBase()
                 .then((value)=>{

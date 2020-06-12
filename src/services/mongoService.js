@@ -20,10 +20,10 @@ class MongoSevice {
         result = (req, res) => {
             this.userHelper(req).signVerify()
                 .then((value)=>{
-                    res.send({ data:'server is Sign', value:value });
+                    res.send(value);
                 })
                 .catch((error)=>{
-                    res.send({ data:'server is not Sign', error:error });
+                    res.send(error);
                 })
         }
 
