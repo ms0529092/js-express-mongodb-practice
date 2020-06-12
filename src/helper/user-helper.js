@@ -14,18 +14,17 @@ class UserHelper {
             .then((value)=>{
                 
                 if(value.length === 0){
-                    console.log('sign success');
+                    this.userVerify.insert();
                     return Promise.resolve(this.responseModel({ retCode:'0000', retMsg:'success', content:value  }));
                 }
-                console.log('sign faild');
+                
                 return Promise.reject(this.responseModel({ retCode:'0001', retMsg:'Input parameter count or format error !', content:value  }));
             })
             .catch((error)=>{
-                console.log('sign faild error');
                 return Promise.reject(error);
             });
 
-        result = await this.userVerify.insert();
+        // result = await this.userVerify.insert();
 
         return result;
     };
