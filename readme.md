@@ -1,4 +1,5 @@
 <h1>express + mongoDB 登入註冊功能</h1>
+<p>經postman測試可執行寫入資料庫</p>
 
 <h3>Usertory</h3>
 <h4>/sign</h4>
